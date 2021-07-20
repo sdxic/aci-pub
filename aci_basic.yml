@@ -16,8 +16,8 @@
   - name: "Create VRF"
     aci_vrf:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       vrf: "VRF1"
       tenant: "{{ aci_tenant }}"
@@ -30,8 +30,8 @@
   - name: "Create Bridge Domain"
     aci_bd:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       bd: BD1
@@ -42,8 +42,8 @@
   - name: "Create Bridge Domain Subnet"
     aci_bd_subnet:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       bd: "BD1"
@@ -55,8 +55,8 @@
   - name: "Create Application Profile"
     aci_ap:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       ap: APP1
@@ -67,8 +67,8 @@
   - name: "Create Web EndPoint Group"
     aci_epg:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       ap: APP1
@@ -82,8 +82,8 @@
   - name: "Create App EndPoint Group"
     aci_epg:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       ap: APP1
@@ -97,8 +97,8 @@
   - name: "Create DB EndPoint Group"
     aci_epg:
       host: "{{ aci_host }}"
-      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
       validate_certs: no
       tenant: "{{ aci_tenant }}"
       ap: APP1
@@ -108,5 +108,3 @@
       preferred_group: yes
       state: present
     delegate_to: localhost
-
-
