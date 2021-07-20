@@ -1,0 +1,112 @@
+---
+
+#   The following variables need to be defined in Ansible Tower via either a Survey or the Extra Variables text field
+#
+#       aci_host - e.g. apic1.mydomain.com
+#       aci_tenant - e.g. TEST-TN
+#      
+#   Credentials will need to be created of type "Network" in Ansible Tower with the username and password of the account 
+#   with access to the test tenant the automation will be configured to run with
+#
+
+- hosts: localhost
+  vars:
+  
+  tasks:
+  - name: "Create VRF"
+    aci_vrf:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      vrf: "VRF1"
+      tenant: "{{ aci_tenant }}"
+      descr: Ansible Created VRF
+      policy_control_preference: enforced
+      policy_control_direction: ingress
+      state: present
+    delegate_to: localhost
+
+  - name: "Create Bridge Domain"
+    aci_bd:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      bd: BD1
+      vrf: VRF1
+      state: present
+    delegate_to: localhost
+
+  - name: "Create Bridge Domain Subnet"
+    aci_bd_subnet:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      bd: "BD1"
+      gateway: 172.16.1.1
+      mask: 24
+      state: present
+    delegate_to: localhost
+
+  - name: "Create Application Profile"
+    aci_ap:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      ap: APP1
+      description: Ansible Created App-Profile
+      state: present
+    delegate_to: localhost
+
+  - name: "Create Web EndPoint Group"
+    aci_epg:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      ap: APP1
+      epg: EPG-WEB
+      description: Ansible Created EPG
+      bd: BD1
+      preferred_group: yes
+      state: present
+    delegate_to: localhost
+
+  - name: "Create App EndPoint Group"
+    aci_epg:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      ap: APP1
+      epg: EPG-APP
+      description: Ansible Created EPG
+      bd: BD1
+      preferred_group: yes
+      state: present
+    delegate_to: localhost
+
+  - name: "Create DB EndPoint Group"
+    aci_epg:
+      host: "{{ aci_host }}"
+      aci_username: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
+      aci_password: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
+      validate_certs: no
+      tenant: "{{ aci_tenant }}"
+      ap: APP1
+      epg: EPG-DB
+      description: Ansible Created EPG
+      bd: BD1
+      preferred_group: yes
+      state: present
+    delegate_to: localhost
+
+
