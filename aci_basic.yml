@@ -11,6 +11,8 @@
 
 - hosts: localhost
   vars:
+    aci_host: "apic1.mydomain.com"
+    aci_tenant: "TEST-TN"
   
   tasks:
   - name: "Create VRF"
